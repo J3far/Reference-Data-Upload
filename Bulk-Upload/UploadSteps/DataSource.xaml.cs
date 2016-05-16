@@ -26,6 +26,7 @@ namespace ReferenceDataUploader.UploadSteps
         private Excel.Sheets datasource_sheets = null;
         private Excel.Worksheet active_worksheet = null;
         private List<string> workSheetsList = new List<string>();
+        private String excel_file_path = "";
 
         //private Dictionary<String,DatabaseConnection> dbConnections;
         private DatabaseConnection currentConnection = null;
@@ -34,7 +35,8 @@ namespace ReferenceDataUploader.UploadSteps
         public DataSource()
         {
             InitializeComponent();
-            navigation_buttons.set_Buttons(true, true, false);
+
+            navigation_buttons.set_Buttons(true, false, false);
             
 
             currentConnection = new DatabaseConnection("", "");
@@ -91,23 +93,35 @@ namespace ReferenceDataUploader.UploadSteps
             Excel.Application excelApplication = new Excel.Application();
             Excel.Workbook workbook = null;
 
-             // Assign the cursor in the Stream to the Form's Cursor property.
-             workbook = excelApplication.Workbooks.Open(path);
+            // Assign the cursor in the Stream to the Form's Cursor property.
+            try {
+                workbook = excelApplication.Workbooks.Open(path);
+            }catch(Exception )
+            {
+                return null;
+            }
             return workbook;
         }
 
         private void broswe_file(object sender, RoutedEventArgs e)
         {
-            datasource_sheets = getExcelWorkBookFromFileBrowser().Sheets;
 
-            for(int i = 1; i <= datasource_sheets.Count;i++)
-            {
-                active_worksheet = datasource_sheets[i];
-                workSheetsList.Add(active_worksheet.Name);
-            }
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "*.csv|*.xlsx";
+            openFileDialog1.Title = "Select a Cursor File";
+            if (openFileDialog1.ShowDialog() == true) text_excel_file_path.Text = openFileDialog1.FileName;
+            check_source_file(null, null);
+            //get the excel file
+            //datasource_sheets = getExcelWorkBookFromFileBrowser().Sheets;
+            //validate_source_file();
+            ////for(int i = 1; i <= datasource_sheets.Count;i++)
+            //{
+            //    active_worksheet = datasource_sheets[i];
+            //    workSheetsList.Add(active_worksheet.Name);
+            //}
 
-            //listView_Sheets.ItemsSource = workSheetsList;
-            //number_of_worksheets_changed();
+            ////listView_Sheets.ItemsSource = workSheetsList;
+            ////number_of_worksheets_changed();
         }
 
         private void got_focus(object sender, RoutedEventArgs e)
@@ -119,22 +133,6 @@ namespace ReferenceDataUploader.UploadSteps
         {
             browse_button_selected = false;
         }
-
-        private void excel_path_changed(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            getExcelWorkBookFromFilePath(text_excel_file_path.Text);
-        }
-
-        //private void selected_worksheet_changed(object sender, SelectionChangedEventArgs e)
-        //{
-        //    active_worksheet = datasource_sheets.Item[listView_Sheets.SelectedIndex+1];
-        //}
-
-        //private void number_of_worksheets_changed()
-        //{
-        //    if (workSheetsList.Count == 0) listView_Sheets.Visibility = Visibility.Hidden;
-        //    else listView_Sheets.Visibility = Visibility.Visible;
-        //}
 
         private void Authenticatin_Index_Changed(object sender, SelectionChangedEventArgs e)
         {
@@ -194,6 +192,32 @@ namespace ReferenceDataUploader.UploadSteps
         private void password_changed(object sender, TextChangedEventArgs e)
         {
             currentConnection.password = txtPassword.Text;
+        }
+
+        private void read_source_file()
+        {
+            
+            if (getExcelWorkBookFromFilePath(text_excel_file_path.Text) == null)
+            {
+                setMessage(true, "Invalid source file, please specify a csv file.");
+                navigation_buttons.set_Buttons(true, false, false);
+            }
+            else
+            {
+                datasource_sheets = getExcelWorkBookFromFilePath(text_excel_file_path.Text).Sheets;
+                setMessage(false, "Source file loaded successfully.");
+                navigation_buttons.set_Buttons(true, true, false);
+
+            }
+        }
+
+        private void check_source_file(object sender, RoutedEventArgs e)
+        {
+            if (text_excel_file_path.Text != excel_file_path)
+            {
+                excel_file_path = text_excel_file_path.Text;
+                read_source_file();
+            }
         }
     }
 }
