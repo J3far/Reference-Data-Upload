@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace ReferenceDataUploader.UploadSteps
@@ -14,12 +15,12 @@ namespace ReferenceDataUploader.UploadSteps
             navigation_buttons.set_Buttons(false, true, true);
         }
 
-        public void UtilizeState(object state)
+        public void UtilizeState(Dictionary<string, object> objects)
         {
             ;
         }
 
-        public object TransferToNextpage()
+        public Dictionary<string, object> TransferToNextpage()
         {
             return null;
         }

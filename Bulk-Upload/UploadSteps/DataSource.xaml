@@ -14,8 +14,8 @@
         <ReferenceDataUploader:Navigation_Buttons x:Name="navigation_buttons" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"/>
         <Label x:Name="label_source_path" Content="Source file:" HorizontalAlignment="Left" Height="32" Margin="10,45.667,0,0" VerticalAlignment="Top" Width="232.562"/>
         <Button x:Name="button_browse" Content="Browse..." HorizontalAlignment="Right" Height="22" Margin="0,83,10,0" VerticalAlignment="Top" Width="100" KeyUp="broswe_file" Click="broswe_file" GotFocus="got_focus" LostFocus="lost_focus"/>
-        <TextBox x:Name="text_excel_file_path"  MaxWidth="476.333" MaxHeight="22.333" Margin="12.667,82.667,121,0" Text="" VerticalAlignment="Top" LostFocus="check_source_file"/>
-        <Label x:Name="lable_message" Content="" Margin="127,0,0,45" RenderTransformOrigin="-0.157,0.64" Height="64" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="473"/>
+        <TextBox x:Name="text_excel_file_path"  MaxWidth="476.333" MaxHeight="22.333" Margin="12.667,82.667,121,0" Text="" VerticalAlignment="Top" DataContextChanged="excel_path_changed"/>
+        <Label x:Name="lable_message" Content="" Margin="126.895,0,0,85" RenderTransformOrigin="-0.157,0.64" Height="24.234" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="115.667"/>
         <Label x:Name="lblServer" Content="Server :" HorizontalAlignment="Left" Height="23.864" Margin="10,142.968,0,0" VerticalAlignment="Top" Width="111.895"/>
         <Label x:Name="lblDatabaseName" Content="Database Name :" HorizontalAlignment="Left" Margin="10,173.832,0,0" Width="111.895" Height="23.864" VerticalAlignment="Top"/>
         <Label x:Name="lblUserName" Content="User Name :" HorizontalAlignment="Left" Margin="10,0,0,144.335" Width="111.895" RenderTransformOrigin="0.308,0.449" Height="23.864" VerticalAlignment="Bottom"/>

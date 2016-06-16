@@ -7,4 +7,5 @@
         mc:Ignorable="d"
         Title="PageSwitcher"
         SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
         />

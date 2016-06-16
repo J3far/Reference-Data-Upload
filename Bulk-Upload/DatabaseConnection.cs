@@ -96,5 +96,19 @@ namespace ReferenceDataUploader
                 return false;
             }
         }
+
+        public SqlDataReader executeQuery(string query)
+        {
+            if (!isValidConnection()) return null;
+
+            SqlConnection connetion = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = query;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Connection = connetion;
+
+            connetion.Open();
+            return cmd.ExecuteReader();
+        }
     }
 }
