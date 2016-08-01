@@ -82,7 +82,7 @@ namespace ReferenceDataUploader.UploadSteps
             while (dataReader.Read())
             {
                 //combine all in one column
-                table_name..Add(dataReader.GetString(table_name_index));
+                //table_name.Add(dataReader.GetString(table_name_index));
                 listView_destination.Items.Add(dataReader.GetString(qestid_index));
                 listView_destination.Items.Add(dataReader.GetString(qestlab_object_index));
                 
